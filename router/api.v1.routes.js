@@ -33,4 +33,15 @@ router.post('/signup', (req, res) => {
     }
 })
 
+router.post('/login', (req, res) => {
+    const { email, password } = req.body
+
+    res.json({
+        body: {
+            email,
+            password,
+        },
+    })
+})
+
 module.exports = router
