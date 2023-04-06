@@ -1,0 +1,29 @@
+{
+    "name": "handymirror-api",
+    "version": "1.0.0",
+    "description": "Creation d'une API permettant de faire communiquer notre miroir connecté et notre application mobile.",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/StamIot/HandyMirror-API.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/StamIot/HandyMirror-API/issues"
+    },
+    "homepage": "https://github.com/StamIot/HandyMirror-API#readme",
+    "dependencies": {
+        "chalk": "^5.2.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^7.0.3",
+        "morgan": "^1.10.0",
+        "nodemon": "^2.0.22"
+    }
+}

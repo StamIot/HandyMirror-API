@@ -1,0 +1,10 @@
+# Dossiers à ignorer
+node_modules/
+dist/
+
+# Fichiers à ignorer
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.DS_Store
