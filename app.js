@@ -3,35 +3,35 @@
  * Dépendances (modules)
  * =======================================================================
  */
-require('dotenv').config()
-require('./config/database/db')
-const express = require('express')
-const morgan = require('morgan')
+require('dotenv').config();
+require('./config/database/db');
+const express = require('express');
+const morgan = require('morgan');
 
 /**
  * =======================================================================
  * Import du routing
  * =======================================================================
  */
-const routerApiV1 = require('./router/api.v1.routes')
+const routerApiV1 = require('./router/api.v1.routes');
 
 /**
  * =======================================================================
  * Configuration de l'application
  * =======================================================================
  */
-const app = express()
-const HOSTNAME = process.env.HOSTNAME || 'localhost'
-const PORT = process.env.PORT || 3000
+const app = express();
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
 
 /**
  * =======================================================================
  * Mise en places des Middlewares
  * =======================================================================
  */
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-app.use(morgan('dev'))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(morgan('dev'));
 
 /**
  * =======================================================================
@@ -39,15 +39,15 @@ app.use(morgan('dev'))
  * "/api" => Api
  * =======================================================================
  */
-app.use('/api/v1', routerApiV1)
+app.use('/api/v1', routerApiV1);
 /**
  * =======================================================================
  * Redirection vers la route /api/v1
  * =======================================================================
  */
 app.get(['/', '/api'], (_, res) => {
-    res.redirect('/api/v1')
-})
+    res.redirect('/api/v1');
+});
 
 /**
  * =======================================================================
@@ -55,5 +55,5 @@ app.get(['/', '/api'], (_, res) => {
  * =======================================================================
  */
 app.listen(PORT, () => {
-    console.log(`API démarré à cette adresse : http://${HOSTNAME}:${PORT}`)
-})
+    console.log(`API démarré à cette adresse : http://${HOST}:${PORT}`);
+});
