@@ -28,7 +28,7 @@ const DATABASE = process.env.MONGODB_DATABASE_NAME;
  * =======================================================================
  */
 mongoose
-    .connect(`mongodb+srv://${USERNAME}:${PASSWORD}@${CLIENT}/`)
+    .connect(`mongodb+srv://${USERNAME}:${PASSWORD}@${CLIENT}/${DATABASE}`)
     .then(() => console.log(`connecté à la bdd de mongoDB sous le pseudo ${USERNAME}`))
     .catch((err) => {
         console.log(err.message);
