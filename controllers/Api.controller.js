@@ -1,4 +1,5 @@
 const UserModel = require('../models/User.model');
+const bcrypt = require('bcrypt');
 
 const getHome = (_, res) => {
     res.status(200).json({
@@ -70,7 +71,60 @@ const postSignup = async (req, res) => {
     }
 };
 
+const postSignIn = async (req, res) => {
+    try {
+        // décomposition
+        const { email, password } = req.body;
+
+        if (!email && !password) {
+            return res.status(400).json({
+                error: `Désolé vous devez saisir tous les champs.`,
+            });
+        }
+        if (!email) {
+            return res.status(400).json({
+                error: `Désolé vous devez saisir email`,
+            });
+        }
+        if (!password) {
+            return res.status(400).json({
+                error: `Désolé vous devez saisir un mot de passe`,
+            });
+        }
+
+        const checkUserExist = await UserModel.findOne({ email: email });
+
+        if (!checkUserExist) {
+            res.status(422).json({
+                error: `Désolé l'email "${email}" n'existe pas en base de donnée`,
+            });
+        } else {
+            // Contrôle du mot de passe hashé en base de donnée
+            const checkValidPassword = await bcrypt.compare(password, checkUserExist.password);
+
+            if (!checkValidPassword) {
+                res.status(422).json({
+                    error: `Le mot de passe est incorrect.
+                    `,
+                });
+            } else {
+                // Utilisateur connecté avec succès
+                res.status(200).json({
+                    message: 'Connexion effectué avec succès',
+                    user: checkUserExist,
+                });
+            }
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
+            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+        }
+    }
+};
+
 module.exports = {
     getHome,
     postSignup,
+    postSignIn,
 };
