@@ -24,23 +24,25 @@ const UserSchema = mongoose.Schema(
         firstname: {
             type: mongoose.Schema.Types.String,
             required: true,
+            trim: true,
         },
         lastname: {
             type: mongoose.Schema.Types.String,
             required: true,
+            uppercase: true,
+            trim: true,
         },
         email: {
             type: mongoose.Schema.Types.String,
             required: true,
             unique: true,
+            lowercase: true,
+            trim: true,
         },
         password: {
             type: mongoose.Schema.Types.String,
             required: true,
-        },
-        passwordConfirmation: {
-            type: mongoose.Schema.Types.String,
-            required: true,
+            trim: true,
         },
     },
     {
@@ -53,15 +55,11 @@ const UserSchema = mongoose.Schema(
  */
 UserSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
-        if (this.password !== this.passwordConfirmation) {
-            return next(new Error('Les mots de passe ne correspondent pas.'));
-        } else {
-            try {
-                const salt = await bcrypt.genSalt(10);
-                this.password = await bcrypt.hash(this.password, salt);
-            } catch (error) {
-                return next(error);
-            }
+        try {
+            const salt = await bcrypt.genSalt(10);
+            this.password = await bcrypt.hash(this.password, salt);
+        } catch (error) {
+            return next(error);
         }
     }
     next();
