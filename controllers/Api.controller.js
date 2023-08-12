@@ -7,7 +7,7 @@ const getHome = (_, res) => {
     });
 };
 
-const postSignup = async (req, res) => {
+const postSignUp = async (req, res) => {
     try {
         // Décomposition
         const { firstname, lastname, email, password, confirmPassword } = req.body;
@@ -125,6 +125,6 @@ const postSignIn = async (req, res) => {
 
 module.exports = {
     getHome,
-    postSignup,
+    postSignUp,
     postSignIn,
 };

@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
  * @version 5.1.0
  * @see https://www.npmjs.com/package/bcrypt
  */
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 
 /**
  * _COLLECTION_NAME fait référence à MONGODB_COLLECTION_NAME issu du fichier .env_
