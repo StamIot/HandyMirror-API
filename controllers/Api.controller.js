@@ -7,6 +7,30 @@ const getHome = (_, res) => {
     });
 };
 
+const getAllUsers = async (req, res) => {
+    try {
+        const counter = await UserModel.estimatedDocumentCount();
+
+        if (counter === 0) {
+            return res.status(200).json({
+                error: 'Aucun utilisateur enregistré',
+            });
+        }
+
+        // J'ai au moins un utilisateur enregistré
+        const resultGetAllUsers = await UserModel.find();
+
+        if (resultGetAllUsers) {
+            res.status(200).json(resultGetAllUsers);
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
+            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+        }
+    }
+};
+
 const postSignUp = async (req, res) => {
     try {
         // Décomposition
@@ -125,6 +149,7 @@ const postSignIn = async (req, res) => {
 
 module.exports = {
     getHome,
+    getAllUsers,
     postSignUp,
     postSignIn,
 };
