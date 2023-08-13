@@ -1,20 +1,49 @@
+/**
+ * =======================================================================
+ * Dépendances (modules)
+ * =======================================================================
+ */
 const router = require('express').Router();
-const ApiController = require('../controllers/Api.controller');
 
-router.get('/', ApiController.getHome);
+/**
+ * =======================================================================
+ * Models
+ * =======================================================================
+ */
+const BaseController = require('../API/controllers/Base.controller');
+const ModuleController = require('../API/controllers/Module.controller');
+const UserController = require('../API/controllers/User.controller');
 
-// Users
-router.get('/users', ApiController.getAllUsers);
-router.get('/users/:id', ApiController.getUserByID);
-router.delete('/users/:id', ApiController.deleteUserByID);
+/**
+ * =======================================================================
+ * BaseController
+ * =======================================================================
+ */
+router.get('/', BaseController.getHome);
+router.post('/signup', BaseController.postSignUp);
+router.post('/signin', BaseController.postSignIn);
 
-// Modules
-router.post('/modules', ApiController.postModule);
-router.get('/modules', ApiController.getAllModules);
-router.get('/modules/:id', ApiController.getModuleByID);
+/**
+ * =======================================================================
+ * ModuleController
+ * =======================================================================
+ */
+router.post('/modules', ModuleController.postModule);
+router.get('/modules', ModuleController.getAllModules);
+router.get('/modules/:id', ModuleController.getModuleByID);
 
-// SignUp & SignIn
-router.post('/signup', ApiController.postSignUp);
-router.post('/signin', ApiController.postSignIn);
+/**
+ * =======================================================================
+ * UserController
+ * =======================================================================
+ */
+router.get('/users', UserController.getAllUsers);
+router.get('/users/:id', UserController.getUserByID);
+router.delete('/users/:id', UserController.deleteUserByID);
 
+/**
+ * =======================================================================
+ * Exports
+ * =======================================================================
+ */
 module.exports = router;
