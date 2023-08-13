@@ -7,6 +7,8 @@ require('dotenv').config();
 require('./config/database/db');
 const express = require('express');
 const morgan = require('morgan');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 
 /**
  * =======================================================================
@@ -23,6 +25,32 @@ const routerApiV1 = require('./router/api.v1.routes');
 const app = express();
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
+
+/**
+ * =======================================================================
+ * Configuration de Swagger
+ * =======================================================================
+ */
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        explorer: true,
+        info: {
+            title: 'HandyMirror API',
+            version: '1.0.0',
+            description: `Découvrez une API concocter à la main pour permettre d'être utiliser avec notre application mobile et surtout notre miroir connecté. (Magic Mirror ²)`,
+        },
+        servers: [
+            {
+                url: `http://${HOST}:${PORT}`,
+            },
+        ],
+    },
+    apis: ['./router/*.js', './API/controllers/*.js'],
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/api/v1/', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /**
  * =======================================================================
@@ -43,11 +71,11 @@ app.use('/api/v1', routerApiV1);
 
 /**
  * =======================================================================
- * Redirection vers la route /api/v1
+ * Redirection vers la documentation de l'API avec Swagger
  * =======================================================================
  */
 app.get(['/', '/api'], (_, res) => {
-    res.redirect('/api/v1');
+    res.redirect('/api/v1/');
 });
 
 /**

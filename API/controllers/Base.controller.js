@@ -17,7 +17,7 @@ const UserModel = require('../models/User.model');
  * Controllers
  * =======================================================================
  */
-const getHome = (_, res) => {
+const getHandyDocs = (_, res) => {
     res.status(200).json({
         salutation: 'Hello world',
     });
@@ -48,7 +48,7 @@ const postSignUp = async (req, res) => {
             return res.status(400).json({ error: 'Tu dois renseigner une confirmation du mot de passe.' });
         }
         if (password !== confirmPassword.trim()) {
-            return res.status(400).json({ error: 'Les mots de passes ne correspondent pas' });
+            return res.status(400).json({ error: 'Les mots de passes ne correspondent pas.' });
         }
 
         // Tout est OK création du nouveau User
@@ -145,7 +145,7 @@ const postSignIn = async (req, res) => {
  * =======================================================================
  */
 module.exports = {
-    getHome,
+    getHandyDocs,
     postSignUp,
     postSignIn,
 };
