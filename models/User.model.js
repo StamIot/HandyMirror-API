@@ -44,10 +44,7 @@ const UserSchema = mongoose.Schema(
             required: true,
             trim: true,
         },
-        modules: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'modules',
-        },
+        modules: [{ type: mongoose.Schema.Types.ObjectId, ref: 'modules' }],
     },
     {
         timestamps: true,
@@ -62,6 +59,24 @@ UserSchema.pre('save', async function (next) {
         try {
             const salt = await bcrypt.genSalt(10);
             this.password = await bcrypt.hash(this.password, salt);
+        } catch (error) {
+            return next(error);
+        }
+    }
+    next();
+});
+
+// Middleware pre-save pour ajouter des modules par défaut
+UserSchema.pre('save', async function (next) {
+    if (this.isNew) {
+        try {
+            const defaultModuleIds = [
+                '64d8df7226bb4f951331e3f2', // Clock
+                '64d8e2c75a4e966a9c7782bd', // MMM-MedicationReminder
+                '64d8e2ca5a4e966a9c7782c0', // MMM-OpenmapWeather
+                '64d8e2cc5a4e966a9c7782c3', // MMM-tda
+            ];
+            this.modules.push(...defaultModuleIds);
         } catch (error) {
             return next(error);
         }
