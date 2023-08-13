@@ -1,6 +1,6 @@
 /**
  * #### Mongoose
- * @version 7.0.3
+ * @version 7.4.2
  * @see https://www.npmjs.com/package/mongoose
  */
 const mongoose = require('mongoose');
@@ -9,12 +9,12 @@ const mongoose = require('mongoose');
  * @version 5.1.0
  * @see https://www.npmjs.com/package/bcrypt
  */
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcrypt');
 
 /**
  * _COLLECTION_NAME fait référence à MONGODB_COLLECTION_NAME issu du fichier .env_
  */
-const COLLECTION_NAME = process.env.MONGODB_COLLECTION_NAME;
+const COLLECTION_USERS = process.env.MONGODB_COLLECTION_USERS;
 
 /**
  * _Définition du schéma pour un utilisateur_
@@ -44,6 +44,10 @@ const UserSchema = mongoose.Schema(
             required: true,
             trim: true,
         },
+        modules: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'modules',
+        },
     },
     {
         timestamps: true,
@@ -65,4 +69,4 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-module.exports = mongoose.model(COLLECTION_NAME, UserSchema);
+module.exports = mongoose.model(COLLECTION_USERS, UserSchema);

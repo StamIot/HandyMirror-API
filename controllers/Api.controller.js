@@ -41,7 +41,7 @@ const postSignUp = async (req, res) => {
             lastname,
             email,
             password,
-        });
+        }).populate('modules');
 
         // Vérification de l'existance d'un utilisateur
         const checkUserFind = await UserModel.findOne({ email: email });
