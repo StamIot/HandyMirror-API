@@ -35,4 +35,9 @@ const ModuleSchema = mongoose.Schema(
     },
 );
 
+/**
+ * =======================================================================
+ * Exports
+ * =======================================================================
+ */
 module.exports = mongoose.model(COLLECTION_MODULES, ModuleSchema);

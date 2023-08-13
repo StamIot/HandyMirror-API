@@ -52,6 +52,12 @@ const UserSchema = mongoose.Schema(
 );
 
 /**
+ * =======================================================================
+ * Middleware - Avant sauvegarde
+ * =======================================================================
+ */
+
+/**
  * Middleware .pre qui permet de controller le password et de l'encrypter
  */
 UserSchema.pre('save', async function (next) {
@@ -66,7 +72,9 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-// Middleware pre-save pour ajouter des modules par défaut
+/**
+ * Middleware pre-save pour ajouter des modules par défaut
+ */
 UserSchema.pre('save', async function (next) {
     if (this.isNew) {
         try {
@@ -84,4 +92,9 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
+/**
+ * =======================================================================
+ * Exports
+ * =======================================================================
+ */
 module.exports = mongoose.model(COLLECTION_USERS, UserSchema);
