@@ -48,7 +48,43 @@ const getUserByID = async (req, res) => {
             if (!getUserID) {
                 return res.status(404).json({ error: "Désolé, il n'existe aucun utilisateur avec cet identifiant" });
             } else {
-                return res.status(200).json(getUserID);
+                return res.status(200).json({
+                    message: 'Récupération réussi avec succès',
+                    users: getUserID,
+                });
+            }
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
+            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+        }
+    }
+};
+
+const deleteUserByID = async (req, res) => {
+    try {
+        // Décomposition: alias
+        const { id: userID } = req.params;
+
+        // Check si UserID est valide
+        const checkValidUserID = isValidObjectId(userID);
+
+        if (!checkValidUserID) {
+            return res.status(404).json({ error: "Désolé cet identifiant n'est pas valide" });
+        } else {
+            const checkUserExist = await UserModel.findOne({ _id: userID });
+
+            if (!checkUserExist) {
+                return res.status(404).json({ error: "Suppression impossible, il n'existe aucun utilisateur avec cet identifiant" });
+            } else {
+                const deleteUserID = await UserModel.deleteOne({ _id: userID });
+                if (deleteUserID) {
+                    return res.status(200).json({
+                        message: 'Supression réussi avec succès',
+                        user: checkUserExist,
+                    });
+                }
             }
         }
     } catch (error) {
@@ -179,6 +215,7 @@ module.exports = {
     getHome,
     getAllUsers,
     getUserByID,
+    deleteUserByID,
     postSignUp,
     postSignIn,
 };
