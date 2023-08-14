@@ -53,7 +53,7 @@ npm start
 ## IV - Connexion réussi
 
 une fois connecté, vous obtiendrez ces messages :
-![Exemple de connexion réussi](https://github.com/StamIot/HandyMirror-API/blob/feature/screens/connected_exemple.png)
+![Exemple de connexion réussi](https://github.com/StamIot/HandyMirror-API/blob/develop/screens/connected_exemple.png)
 
 ## V - Découvrez HandyDocs
 
@@ -61,7 +61,7 @@ Nous avons mis en place une documentation écrite avec Swagger.
 Elle permet à quiconque qui se retrouverai à la racine de l'API d'être redirigé vers le segment d'URL correspondant à cette documentation soit **/api/v1**.
 
 voici le résultat obtenu à l'écran en **locale avec une configuration de type localhost**
-![HandyDocs](https://github.com/StamIot/HandyMirror-API/blob/feature/screens/handyDocs.png)
+![HandyDocs](https://github.com/StamIot/HandyMirror-API/blob/develop/screens/handyDocs.png)
 
 ---
 
