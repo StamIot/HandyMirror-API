@@ -72,6 +72,59 @@ const getUserByID = async (req, res) => {
     }
 };
 
+const putUserByID = async (req, res) => {
+    try {
+        const { id: userID } = req.params;
+        const checkValidUserID = isValidObjectId(userID);
+
+        if (!checkValidUserID) {
+            return res.status(400).json({ error: `l'ID : "${userID}" saisi n'existe pas en base de donnée` });
+        } else {
+            const { firstname, lastname, pseudo, phone, genre, addressAtHome, city, country, children } = req.body;
+
+            // Vérifiez que tous les champs requis sont renseignés
+            if (!firstname || !lastname || !pseudo || !phone || !genre || !addressAtHome || !city || !country || !children) {
+                return res.status(400).json({ error: 'Tous les champs doivent être renseignés.' });
+            }
+
+            // Vérification de l'existence de l'utilisateur
+            const userExist = await UserModel.findById(userID);
+
+            if (!userExist) {
+                return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+            }
+
+            // Mise à jour de l'utilisateur
+            const updatedUser = await UserModel.findByIdAndUpdate(
+                userID,
+                {
+                    firstname,
+                    lastname,
+                    pseudo,
+                    phone,
+                    genre,
+                    addressAtHome,
+                    city,
+                    country,
+                    children,
+                },
+                {
+                    new: true,
+                },
+            );
+
+            if (updatedUser) {
+                return res.status(200).json({ message: 'Utilisateur mis à jour avec succès.', user: updatedUser });
+            } else {
+                return res.status(500).json({ error: "Une erreur s'est produite lors de la mise à jour de l'utilisateur." });
+            }
+        }
+    } catch (error) {
+        console.error(`Error: ${error.message}\nStack: ${error.stack}`);
+        res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+    }
+};
+
 const deleteUserByID = async (req, res) => {
     try {
         // Décomposition: alias
@@ -113,5 +166,6 @@ const deleteUserByID = async (req, res) => {
 module.exports = {
     getAllUsers,
     getUserByID,
+    putUserByID,
     deleteUserByID,
 };

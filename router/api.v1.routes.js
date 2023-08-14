@@ -35,14 +35,14 @@ const UserController = require('../API/controllers/User.controller');
 
 /**
  * @swagger
- * /api/v1/:
+ * /api/v1/handy-docs:
  *   get:
  *     summary: Renvoie la page d'accueil de la documentation de l'API faite avec Swagger
  *     responses:
  *       200:
  *         description: Page sur la documentation de l'API renvoyée avec succès!
  */
-router.get('/', BaseController.getHandyDocs);
+router.get('/handy-docs', BaseController.getHandyDocs);
 
 /**
  * @swagger
@@ -201,6 +201,75 @@ router.get('/users', UserController.getAllUsers);
  *         description: Utilisateur non valide ou introuvable.
  */
 router.get('/users/:id', UserController.getUserByID);
+
+/**
+ * @swagger
+ * /api/v1/users/{id}:
+ *   put:
+ *     summary: Mise à jour complète d'un utilisateur par son ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l'utilisateur à mettre à jour.
+ *     requestBody:
+ *       description: Données de mise à jour de l'utilisateur
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 description: Prénom de l'utilisateur.
+ *               lastname:
+ *                 type: string
+ *                 description: Nom de l'utilisateur.
+ *               pseudo:
+ *                 type: string
+ *                 description: Pseudonyme de l'utilisateur.
+ *               phone:
+ *                 type: string
+ *                 description: Numéro de téléphone de l'utilisateur.
+ *               genre:
+ *                 type: string
+ *                 description: Genre de l'utilisateur (Homme/Femme).
+ *               addressAtHome:
+ *                 type: string
+ *                 description: Adresse de l'utilisateur.
+ *               city:
+ *                 type: string
+ *                 description: Ville de l'utilisateur.
+ *               country:
+ *                 type: string
+ *                 description: Pays de l'utilisateur.
+ *               children:
+ *                 type: string
+ *                 description: Indication si l'utilisateur a des enfants (Oui/Non).
+ *             example:
+ *               firstname: John
+ *               lastname: Doe
+ *               pseudo: johndoe
+ *               phone: 0769696969
+ *               genre: Homme
+ *               addressAtHome: 123 Main St
+ *               city: MyCity
+ *               country: MyCountry
+ *               children: Oui
+ *     responses:
+ *       200:
+ *         description: Utilisateur mis à jour avec succès.
+ *       400:
+ *         description: Requête invalide (champs manquants, etc.).
+ *       404:
+ *         description: Utilisateur non valide ou introuvable pour la mise à jour.
+ *       500:
+ *         description: Erreur interne du serveur lors de la mise à jour.
+ */
+router.put('/users/:id', UserController.putUserByID);
 
 /**
  * @swagger
