@@ -23,7 +23,7 @@ const getAllUsers = async (req, res) => {
         const counter = await UserModel.estimatedDocumentCount();
 
         if (counter === 0) {
-            return res.status(200).json({
+            return res.status(204).json({
                 error: 'Aucun utilisateur enregistré',
             });
         }

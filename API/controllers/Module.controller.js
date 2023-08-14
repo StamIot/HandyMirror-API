@@ -65,12 +65,13 @@ const postModule = async (req, res) => {
         }
     }
 };
+
 const getAllModules = async (_, res) => {
     try {
         const counter = await ModuleModel.estimatedDocumentCount();
 
         if (counter === 0) {
-            return res.status(200).json({
+            return res.status(204).json({
                 error: 'Aucun Module enregistré',
             });
         }
@@ -88,6 +89,7 @@ const getAllModules = async (_, res) => {
         }
     }
 };
+
 const getModuleByID = async (req, res) => {
     try {
         // Décomposition: alias
