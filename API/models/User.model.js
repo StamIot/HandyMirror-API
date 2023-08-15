@@ -45,6 +45,43 @@ const UserSchema = mongoose.Schema(
             trim: true,
         },
         modules: [{ type: mongoose.Schema.Types.ObjectId, ref: 'modules' }],
+        pseudo: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+        },
+        phone: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+            default: '',
+        },
+        genre: {
+            type: mongoose.Schema.Types.Boolean,
+            default: false,
+        },
+        country: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+            default: 'France',
+        },
+        city: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+            default: 'Lyon',
+        },
+        addressAtHome: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+            default: '',
+        },
+        compagnionLife: {
+            type: mongoose.Schema.Types.String,
+            trim: true,
+            default: '',
+        },
+        children: {
+            type: mongoose.Schema.Types.Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

@@ -50,7 +50,7 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
-app.use('/api/v1/', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+app.use('/api/v1/handy-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /**
  * =======================================================================
@@ -74,8 +74,8 @@ app.use('/api/v1', routerApiV1);
  * Redirection vers la documentation de l'API avec Swagger
  * =======================================================================
  */
-app.get(['/', '/api'], (_, res) => {
-    res.redirect('/api/v1/');
+app.get(['/', '/api', '/api/v1'], (_, res) => {
+    res.redirect('/api/v1/handy-docs');
 });
 
 /**
