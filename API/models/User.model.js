@@ -52,6 +52,7 @@ const UserSchema = mongoose.Schema(
         phone: {
             type: mongoose.Schema.Types.String,
             trim: true,
+            default: '',
         },
         genre: {
             type: mongoose.Schema.Types.Boolean,
@@ -59,23 +60,23 @@ const UserSchema = mongoose.Schema(
         },
         country: {
             type: mongoose.Schema.Types.String,
+            trim: true,
             default: 'France',
         },
         city: {
             type: mongoose.Schema.Types.String,
+            trim: true,
             default: 'Lyon',
         },
         addressAtHome: {
             type: mongoose.Schema.Types.String,
             trim: true,
-        },
-        addressAtJob: {
-            type: mongoose.Schema.Types.String,
-            trim: true,
+            default: '',
         },
         compagnionLife: {
             type: mongoose.Schema.Types.String,
             trim: true,
+            default: '',
         },
         children: {
             type: mongoose.Schema.Types.Boolean,

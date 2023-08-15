@@ -29,7 +29,7 @@ const getAllUsers = async (req, res) => {
         }
 
         // J'ai au moins un utilisateur enregistré
-        const resultGetAllUsers = await UserModel.find().populate('modules');
+        const resultGetAllUsers = await UserModel.find();
 
         if (resultGetAllUsers) {
             res.status(200).json(resultGetAllUsers);
@@ -53,7 +53,7 @@ const getUserByID = async (req, res) => {
         if (!checkValidUserID) {
             return res.status(404).json({ error: "Désolé cet identifiant n'est pas valide" });
         } else {
-            const getUserID = await UserModel.findOne({ _id: userID });
+            const getUserID = await UserModel.findOne({ _id: userID }).populate('modules');
 
             if (!getUserID) {
                 return res.status(404).json({ error: "Désolé, il n'existe aucun utilisateur avec cet identifiant" });
@@ -80,10 +80,10 @@ const putUserByID = async (req, res) => {
         if (!checkValidUserID) {
             return res.status(400).json({ error: `l'ID : "${userID}" saisi n'existe pas en base de donnée` });
         } else {
-            const { firstname, lastname, pseudo, phone, genre, addressAtHome, city, country, children } = req.body;
+            const { firstname, lastname, pseudo, phone, genre, addressAtHome, city, country, compagnionLife, children } = req.body;
 
             // Vérifiez que tous les champs requis sont renseignés
-            if (!firstname || !lastname || !pseudo || !phone || !genre || !addressAtHome || !city || !country || !children) {
+            if (!firstname && !lastname && !pseudo && !phone && !genre && !addressAtHome && !city && !country && !compagnionLife && !children) {
                 return res.status(400).json({ error: 'Tous les champs doivent être renseignés.' });
             }
 
@@ -106,6 +106,7 @@ const putUserByID = async (req, res) => {
                     addressAtHome,
                     city,
                     country,
+                    compagnionLife,
                     children,
                 },
                 {
