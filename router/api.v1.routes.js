@@ -293,6 +293,53 @@ router.put('/users/:id', UserController.putUserByID);
 
 /**
  * @swagger
+ * /api/v1/users/{id}/photos:
+ *   put:
+ *     summary: Mise à jour complète d'un utilisateur par son ID pour ses photos
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l'utilisateur à mettre à jour.
+ *     requestBody:
+ *       description: Données de mise à jour de l'utilisateur
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               photos.face:
+ *                 type: string
+ *                 description: Photo de face.
+ *               photos.left:
+ *                 type: string
+ *                 description: Photo côté gauche.
+ *               photos.right:
+ *                 type: string
+ *                 description: Photo côté droit.
+ *             example:
+ *               photos: {
+ *                 face: "url",
+ *                 left: "url",
+ *                 right: "url",
+ *               }
+ *     responses:
+ *       200:
+ *         description: Utilisateur mis à jour avec succès.
+ *       400:
+ *         description: Requête invalide (champs manquants, etc.).
+ *       404:
+ *         description: Utilisateur non valide ou introuvable pour la mise à jour.
+ *       500:
+ *         description: Erreur interne du serveur lors de la mise à jour.
+ */
+router.put('/users/:id/photos', UserController.putUserPhotoByID);
+
+/**
+ * @swagger
  * /api/v1/users/{id}:
  *   delete:
  *     summary: Supprime un utilisateur par son ID
