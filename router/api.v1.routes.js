@@ -204,6 +204,26 @@ router.get('/users/:id', UserController.getUserByID);
 
 /**
  * @swagger
+ * /api/v1/users/{id}/photos:
+ *   get:
+ *     summary: Récupère un utilisateur par son ID et affiche toutes ses photos
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l'utilisateur à récupérer
+ *     responses:
+ *       200:
+ *         description: Utilisateur récupéré avec succès.
+ *       404:
+ *         description: Utilisateur non valide ou introuvable.
+ */
+router.get('/users/:id/photos', UserController.getUserPhotosByID);
+
+/**
+ * @swagger
  * /api/v1/users/{id}:
  *   put:
  *     summary: Mise à jour complète d'un utilisateur par son ID

@@ -177,6 +177,46 @@ const putUserByID = async (req, res) => {
     }
 };
 
+const getUserPhotosByID = async (req, res) => {
+    try {
+        // Décomposition: alias
+        const { id: userID } = req.params;
+
+        // Check si UserID est valide
+        const checkValidUserID = isValidObjectId(userID);
+
+        if (!checkValidUserID) {
+            return res
+                .status(404)
+                .json({ error: "Désolé cet identifiant n'est pas valide" });
+        } else {
+            const getUserID = await UserModel.findOne({ _id: userID }).select(
+                '_id photos firstname',
+            );
+
+            if (!getUserID) {
+                return res.status(404).json({
+                    error: "Désolé, il n'existe aucun utilisateur avec cet identifiant",
+                });
+            } else {
+                return res.status(200).json({
+                    message: 'Récupération réussi avec succès',
+                    users: getUserID,
+                });
+            }
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(
+                `\nError: ${error.message}\n\nStack: ${error.stack}\n\n`,
+            );
+            res.status(500).json({
+                error: "Une erreur s'est produite lors du traitement de la demande.",
+            });
+        }
+    }
+};
+
 const deleteUserByID = async (req, res) => {
     try {
         // Décomposition: alias
@@ -226,6 +266,7 @@ const deleteUserByID = async (req, res) => {
 module.exports = {
     getAllUsers,
     getUserByID,
+    getUserPhotosByID,
     putUserByID,
     deleteUserByID,
 };
