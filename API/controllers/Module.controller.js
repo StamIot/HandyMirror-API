@@ -23,13 +23,21 @@ const postModule = async (req, res) => {
         const { name, description } = req.body;
 
         if (!name && !description) {
-            return res.status(400).json({ error: 'Tous les champs doivent être renseignés.' });
+            return res
+                .status(400)
+                .json({ error: 'Tous les champs doivent être renseignés.' });
         }
         if (!name) {
-            return res.status(400).json({ error: 'Tu dois renseigner un nom pour ce module.' });
+            return res
+                .status(400)
+                .json({ error: 'Tu dois renseigner un nom pour ce module.' });
         }
         if (!description) {
-            return res.status(400).json({ error: 'Tu dois renseigner une description pour ce module.' });
+            return res
+                .status(400)
+                .json({
+                    error: 'Tu dois renseigner une description pour ce module.',
+                });
         }
 
         // Vérrification de l'existance d'un module
@@ -60,8 +68,12 @@ const postModule = async (req, res) => {
         }
     } catch (error) {
         if (error instanceof Error) {
-            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
-            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+            console.log(
+                `\nError: ${error.message}\n\nStack: ${error.stack}\n\n`,
+            );
+            res.status(500).json({
+                error: "Une erreur s'est produite lors du traitement de la demande.",
+            });
         }
     }
 };
@@ -84,8 +96,12 @@ const getAllModules = async (_, res) => {
         }
     } catch (error) {
         if (error instanceof Error) {
-            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
-            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+            console.log(
+                `\nError: ${error.message}\n\nStack: ${error.stack}\n\n`,
+            );
+            res.status(500).json({
+                error: "Une erreur s'est produite lors du traitement de la demande.",
+            });
         }
     }
 };
@@ -99,12 +115,18 @@ const getModuleByID = async (req, res) => {
         const checkValidModuleID = isValidObjectId(moduleID);
 
         if (!checkValidModuleID) {
-            return res.status(404).json({ error: "Désolé ce module n'est pas valide" });
+            return res
+                .status(404)
+                .json({ error: "Désolé ce module n'est pas valide" });
         } else {
             const getModuleID = await ModuleModel.findOne({ _id: moduleID });
 
             if (!getModuleID) {
-                return res.status(404).json({ error: "Désolé, il n'existe aucun module avec cet identifiant" });
+                return res
+                    .status(404)
+                    .json({
+                        error: "Désolé, il n'existe aucun module avec cet identifiant",
+                    });
             } else {
                 return res.status(200).json({
                     message: 'Récupération réussi avec succès',
@@ -114,8 +136,12 @@ const getModuleByID = async (req, res) => {
         }
     } catch (error) {
         if (error instanceof Error) {
-            console.log(`\nError: ${error.message}\n\nStack: ${error.stack}\n\n`);
-            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+            console.log(
+                `\nError: ${error.message}\n\nStack: ${error.stack}\n\n`,
+            );
+            res.status(500).json({
+                error: "Une erreur s'est produite lors du traitement de la demande.",
+            });
         }
     }
 };
