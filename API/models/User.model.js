@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 /**
- * _COLLECTION_NAME fait référence à MONGODB_COLLECTION_NAME issu du fichier .env_
+ * COLLECTION_USERS fait référence à MONGODB_COLLECTION_USERS issu du fichier .env_
  */
 const COLLECTION_USERS = process.env.MONGODB_COLLECTION_USERS;
 
@@ -85,6 +85,20 @@ const UserSchema = mongoose.Schema(
         photoProfile: {
             type: mongoose.Schema.Types.String,
             default: '',
+        },
+        photos: {
+            face: {
+                type: mongoose.Schema.Types.String,
+                default: '',
+            },
+            left: {
+                type: mongoose.Schema.Types.String,
+                default: '',
+            },
+            right: {
+                type: mongoose.Schema.Types.String,
+                default: '',
+            },
         },
     },
     {

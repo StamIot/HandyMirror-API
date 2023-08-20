@@ -6,7 +6,7 @@
 const mongoose = require('mongoose');
 
 /**
- * _COLLECTION_NAME fait référence à MONGODB_COLLECTION_MODULE issu du fichier .env_
+ * COLLECTION_MODULES fait référence à MONGODB_COLLECTION_MODULE issu du fichier .env_
  */
 const COLLECTION_MODULES = process.env.MONGODB_COLLECTION_MODULES;
 
