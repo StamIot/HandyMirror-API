@@ -7,7 +7,7 @@ const router = require('express').Router();
 
 /**
  * =======================================================================
- * Models
+ * Contrôleurs
  * =======================================================================
  */
 const BaseController = require('../API/controllers/Base.controller');
